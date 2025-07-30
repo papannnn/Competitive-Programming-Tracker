@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+// https://codeforces.com/problemset/problem/1472/A
 // O(n * (log w + log h))
 int main () {
     int n;
