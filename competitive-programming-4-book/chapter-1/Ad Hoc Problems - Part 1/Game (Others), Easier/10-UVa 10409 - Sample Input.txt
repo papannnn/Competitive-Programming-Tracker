@@ -1,0 +1,8 @@
+6
+west
+north
+north
+west
+north
+west
+0
