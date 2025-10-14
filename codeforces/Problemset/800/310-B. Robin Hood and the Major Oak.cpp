@@ -10,12 +10,12 @@ int main () {
         int n, k;
         cin >> n >> k;
 
+        int even;
         if (n % 2 == 1) {
-            int even = ceil((double) k / 2);
-            cout << (even % 2 == 0 ? "YES" : "NO") << endl;
+            even = ceil((double) k / 2);
         } else {
-            int even = floor((double) k / 2);
-            cout << (even % 2 == 0 ? "YES" : "NO") << endl;
+            even = floor((double) k / 2);
         }
+        cout << (even % 2 == 0 ? "YES" : "NO") << endl;
     }
 }
