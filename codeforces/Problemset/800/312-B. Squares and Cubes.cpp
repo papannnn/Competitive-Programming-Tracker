@@ -2,7 +2,7 @@
 
 using namespace std;
 // https://codeforces.com/problemset/problem/1619/B
-// O(t)
+// O(t * (n * sqrt(n)))
 int main () {
     int t;
     cin >> t;
