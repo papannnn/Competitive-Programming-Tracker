@@ -2,6 +2,7 @@
 
 using namespace std;
 // https://codeforces.com/problemset/problem/1971/C
+// O(t)
 int main () {
     int t;
     cin >> t;
