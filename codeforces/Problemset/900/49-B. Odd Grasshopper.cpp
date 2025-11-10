@@ -12,38 +12,25 @@ int main () {
         int remainder = n % 4;
         long long div = n / 4;
 
+        int polar = 1;
         if (pos % 2) {
-            if (remainder == 3) {
-                cout << pos - (div + 1) * 4 << endl;
-            }
+            polar = -1;
+        }
 
-            if (remainder == 1) {
-                cout << (pos + 1) + (div * 4) << endl;
-            }
+        if (remainder == 0) {
+            cout << pos << endl;
+        }
 
-            if (remainder == 2) {
-                cout << pos - 1 << endl;
-            }
+        if (remainder == 2) {
+            cout << pos + polar << endl;
+        }
 
-            if (remainder == 0) {
-                cout << pos << endl;
-            }
-        } else {
-            if (remainder == 2) {
-                cout << pos + 1 << endl;
-            }
+        if (remainder == 1) {
+            cout << (pos + (-1 * polar) + -(div * 4) * polar) << endl;
+        }
 
-            if (remainder == 0) {
-                cout << pos << endl;
-            }
-
-            if (remainder == 1) {
-                cout << (pos - 1) - (div * 4) << endl;
-            }
-
-            if (remainder == 3) {
-                cout << pos + (div + 1) * 4 << endl;
-            }
+        if (remainder == 3) {
+            cout << pos + (div + 1) * 4 * polar << endl;
         }
     }
 }
