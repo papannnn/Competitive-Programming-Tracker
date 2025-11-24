@@ -8,7 +8,6 @@ int gcd(int a, int b) {
 }
 
 int main () {
-    // cout << gcd(1, 5) << endl;
     int t;
     cin >> t;
     while (t--) {
@@ -33,5 +32,3 @@ int main () {
         cout << d << endl;
     }
 }
-// 200
-// 100 50 25 20 10 5 4 2 1
