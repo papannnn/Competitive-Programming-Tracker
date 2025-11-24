@@ -2,7 +2,7 @@
 
 using namespace std;
 // https://codeforces.com/problemset/problem/1916/B
-// O(t)
+// O(t * log(min(a, b)))
 int gcd(int a, int b) {
     return b == 0 ? a : gcd(b, a % b);
 }
