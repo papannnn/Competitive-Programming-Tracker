@@ -2,74 +2,69 @@
 
 using namespace std;
 int main () {
-    int player, game;
-    while (cin >> player >> game) {
+    int player, k;
+    while (true) {
+        cin >> player;
         if (player == 0) {
             break;
         }
-        vector<double> win(player);
-        vector<double> play(player);
-        while (game--) {
-            int p1, p2;
-            string guess1, guess2;
 
-            cin >> p1 >> guess1 >> p2 >> guess2;
-            play[p1 - 1]++;
-            play[p2 - 1]++;
-            if (guess1.compare("rock") == 0) {
-                // Rock p1
-                if (guess2.compare("rock") == 0) {
-                    // Rock p2
-                    play[p1 - 1]--;
-                    play[p2 - 1]--;
-                } else if (guess2.compare("paper") == 0) {
-                    // Paper p2
-                    win[p2 - 1]++;
-                } else if (guess2.compare("scissors") == 0) {
-                    // Scissor p2
-                    win[p1 - 1]++;
+        cin >> k;
+        unordered_map<int, int> playerLose;
+        unordered_map<int, int> playerWin;
+        int loop = k * player * (player - 1) / 2;
+        for (int i = 0 ; i < loop; i++) {
+            int player1, player2;
+            string choose1, choose2;
+            
+            cin >> player1 >> choose1 >> player2 >> choose2;
+            if (choose1.compare("rock") == 0) {
+
+                if (choose2.compare("rock") == 0) {
+                    // Tie
+                } else if (choose2.compare("paper") == 0) {
+                    playerWin[player2]++;
+                    playerLose[player1]++;
+                } else {
+                    playerWin[player1]++;
+                    playerLose[player2]++;
                 }
-            } else if (guess1.compare("paper") == 0) {
-                // Paper p1
-                if (guess2.compare("rock") == 0) {
-                    // Rock p2
-                    win[p1 - 1]++;
-                } else if (guess2.compare("paper") == 0) {
-                    // Paper p2
-                    play[p1 - 1]--;
-                    play[p2 - 1]--;
-                } else if (guess2.compare("scissors") == 0) {
-                    // Scissor p2
-                    win[p2 - 1]++;
+
+            } else if (choose1.compare("paper") == 0) {
+
+                if (choose2.compare("rock") == 0) {
+                    playerWin[player1]++;
+                    playerLose[player2]++;
+                } else if (choose2.compare("paper") == 0) {
+
+                } else {
+                    playerWin[player2]++;
+                    playerLose[player1]++;
                 }
-            } else if (guess1.compare("scissors") == 0) {
-                // Scissor p1
-                if (guess2.compare("rock") == 0) {
-                    // Rock p2
-                    win[p2 - 1]++;
-                } else if (guess2.compare("paper") == 0) {
-                    // Paper p2
-                    win[p1 - 1]++;
-                } else if (guess2.compare("scissors") == 0) {
-                    // Scissor p2
-                    play[p1 - 1]--;
-                    play[p2 - 1]--;
+
+            } else {
+
+                if (choose2.compare("rock") == 0) {
+                    playerWin[player2]++;
+                    playerLose[player1]++;
+                } else if (choose2.compare("paper") == 0) {
+                    playerWin[player1]++;
+                    playerLose[player2]++;
+                } else {
+                    
                 }
+
             }
         }
-
-        for (int i = 0 ; i < player; i++) {
-            if (play[i] == 0) {
+        for (int i = 1 ; i <= player; i++) {
+            if (playerWin[i] + playerLose[i] == 0) {
                 cout << "-" << endl;
                 continue;
             }
-
-            if (win[i] == 0) {
-                cout << fixed << setprecision(3) << 0.000 << endl;
-                continue;
-            }
-            cout << fixed << setprecision(3) << win[i] / play[i] << endl;
+            double res = (double) playerWin[i] / (playerWin[i] + playerLose[i]);
+            cout << fixed << setprecision(3) << res << endl;
         }
         cout << endl;
+        player = 0;
     }
 }
