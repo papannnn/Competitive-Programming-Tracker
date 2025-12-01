@@ -7,7 +7,7 @@ struct S {
     int cnt;
 };
 
-void merge(vector<int> &arr, int l, int mid, int r) {
+void merge(deque<int> &arr, int l, int mid, int r) {
     int ptr1 = l;
     int ptr2 = mid + 1;
 
@@ -33,7 +33,7 @@ void merge(vector<int> &arr, int l, int mid, int r) {
     }
 }
 
-void mergeSort(vector<int> &arr, int l, int r) {
+void mergeSort(deque<int> &arr, int l, int r) {
     if (l < r) {
         int mid = (l + r) / 2;
         mergeSort(arr, l, mid);
@@ -52,12 +52,12 @@ int main () {
         int n, k;
         cin >> n >> k;
         
-        vector<int> arr(n);
+        deque<int> arr(n);
         for (int &num : arr) {
             cin >> num;
         }
 
-        sort(arr.begin(), arr.end());
+        mergeSort(arr, 0, arr.size() - 1);
         deque<int> freq = {1};
         for (int i = 1 ; i < arr.size(); i++) {
             if (arr[i] == arr[i - 1]) {
