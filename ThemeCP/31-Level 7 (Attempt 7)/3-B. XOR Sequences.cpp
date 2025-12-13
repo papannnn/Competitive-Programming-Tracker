@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+// https://codeforces.com/problemset/problem/1979/B
 // O(t * log (x ^ y))
 int main () {
     int t;
