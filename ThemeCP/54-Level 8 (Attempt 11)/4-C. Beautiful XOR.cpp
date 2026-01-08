@@ -40,26 +40,18 @@ int main () {
         }
 
         long long x = pow(2, binaryA.size() - 1);
-        deque<long long> resArrRemove;
-        vector<long long> resArrAdd;
+        deque<long long> resArr;
         for (int i = 0; i < binaryA.size(); i++) {
             if (binaryA[i] != binaryB[i]) {
-                if (binaryA[i] == '1') {
-                    resArrRemove.push_back(x);
-                } else {
-                    resArrAdd.push_back(x);
-                }
+                resArr.push_front(x);
             }
             x /= 2;
         }
-        cout << resArrRemove.size() + resArrAdd.size() << endl;
-        for (int i = 0; i < resArrAdd.size(); i++) {
-            cout << resArrAdd[i] << " ";
+        cout << resArr.size() << endl;
+        for (int i = 0; i < resArr.size(); i++) {
+            cout << resArr[i] << " ";
         }
 
-        for (int i = 0; i < resArrRemove.size(); i++) {
-            cout << resArrRemove[i] << " ";
-        }
         cout << endl;
     }
 }
