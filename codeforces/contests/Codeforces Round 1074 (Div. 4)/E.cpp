@@ -20,7 +20,9 @@ int main () {
         }
 
         sort(spikePos.begin(), spikePos.end());
-        unordered_map<long long, vector<long long>> robotDeadPos;
+        
+        map<long long, vector<long long>> robotDeadPos;
+        // unordered_map<long long, vector<long long>> robotDeadpos; TLE
         for (int i = 0 ; i < robotArr.size(); i++) {
             auto left = lower_bound(spikePos.begin(), spikePos.end(), robotArr[i]);
             auto right = upper_bound(spikePos.begin(), spikePos.end(), robotArr[i]);
@@ -56,6 +58,7 @@ int main () {
             }
 
             deadRobot.insert(robotDeadPos[pos].begin(), robotDeadPos[pos].end());
+            robotDeadPos.erase(pos);
             cout << n - deadRobot.size() << " ";
         }
         cout << endl;
