@@ -2,7 +2,7 @@
 
 using namespace std;
 // https://codeforces.com/contest/1734/problem/C
-// O(t * n)
+// O(t * n log n)
 int main () {
     int t;
     cin >> t;

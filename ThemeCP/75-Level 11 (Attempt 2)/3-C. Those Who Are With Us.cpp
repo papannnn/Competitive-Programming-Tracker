@@ -35,57 +35,15 @@ int main () {
                 }
             }
         }
-        // cout << "cnt: " << cnt << endl;
+        
         bool valid = false;
-        // for (auto &mapping : rowCnt) {
-        //     cout << "RowCnt: " << mapping.first << " " << mapping.second << endl;
-        //     if (valid) {
-        //         break;
-        //     }
-        //     for (int i = 0; i < m; i++) {
-        //         int minus = rowCnt.find(i) != rowCnt.end();
-        //         cout << "Pos: " << i << endl;
-        //         cout << "Tot: " << mapping.second + colCnt[i] - minus << endl;
-        //         if (mapping.second + colCnt[i] - minus == cnt) {
-        //             valid = true;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // for (auto &mapping : colCnt) {
-        //     cout << "ColCnt: " << mapping.first << " " << mapping.second << endl;
-        //     if (valid) {
-        //         break;
-        //     }
-        //     for (int i = 0; i < n; i++) {
-        //         int minus = colCnt.find(i) != colCnt.end();
-        //         cout << "Pos: " << i << endl;
-        //         cout << "Tot: " << mapping.second + rowCnt[i] - minus << endl;
-        //         if (mapping.second + rowCnt[i] - minus == cnt) {
-        //             valid = true;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // for (auto &mapping : rowCnt) {
-        //     cout << "Row: " << mapping.first << " " << mapping.second << endl;
-        // }
-
-        // for (auto &mapping : colCnt) {
-        //     cout << "Col: " << mapping.first << " " << mapping.second << endl;
-        // }
-
         for (int i = 0 ; i < n; i++) {
             for (int j = 0 ; j < m; j++) {
                 int minus = arr[i][j] == maxVal;
-                // cout << rowCnt[i] + colCnt[j] - minus << " ";
                 if (rowCnt[i] + colCnt[j] - minus == cnt) {
                     valid = true;
                 }
             }
-            // cout << endl;
         }
 
         if (valid) {
