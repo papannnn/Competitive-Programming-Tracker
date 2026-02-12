@@ -14,22 +14,18 @@ int main () {
         for (long long &num : arr) {
             cin >> num;
         }
-
-        sort(arr.begin(), arr.end());
-        for (int i = n % 2 ; i < arr.size(); i += 2) {
-            arr[i] = min(arr[i] + k, arr[i + 1]);
-        }
-
         sort(arr.begin(), arr.end(), greater<long long>());
         long long res = 0;
         for (int i = 0 ; i < arr.size(); i++) {
             if (i % 2 == 0) {
                 res += arr[i];
             } else {
+                int prev = arr[i];
+                arr[i] = min(arr[i] + k, arr[i - 1]);
+                k -= arr[i] - prev;
                 res -= arr[i];
             }
         }
-        
         cout << res << endl;
     }
 }
