@@ -2,7 +2,7 @@
 
 using namespace std;
 // https://codeforces.com/contest/1872/problem/D
-// O(t)
+// O(t * log n)
 long long compute(long long start, long long end) {
     return (end + start) * (end - start + 1) / 2;
 }
