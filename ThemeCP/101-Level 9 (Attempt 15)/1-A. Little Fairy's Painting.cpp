@@ -9,21 +9,18 @@ int main () {
     while (t--) {
         int n;
         cin >> n;
-        vector<int> arr(n);
-        vector<int> uniq;
         set<int> flag;
-        for (int &num : arr) {
-            cin >> num;
-            if (flag.find(num) == flag.end()) {
-                flag.insert(num);
-                uniq.push_back(num);
+        for (int i = 0 ; i < n; i++) {
+            int n;
+            cin >> n;
+            flag.insert(n);
+        }
+
+        for (auto &num : flag) {
+            if (num >= flag.size()) {
+                cout << num << endl;
+                break;
             }
         }
-        for (int &num : uniq) {
-            cout << num << " ";
-        }
-        cout << endl;
-        long long x = 1e18;
-        cout << ((x - n) % flag.size()) << endl;
     }
 }
