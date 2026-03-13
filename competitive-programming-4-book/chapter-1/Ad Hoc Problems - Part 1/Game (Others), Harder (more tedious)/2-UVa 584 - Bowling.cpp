@@ -6,21 +6,26 @@ int main () {
     string s;
     getline(cin, s);
     while (s != "Game Over") {
-        int doubleCount = 0;
+        deque<int> queue;
         int res = 0;
         int prevNum = 0;
         int cnt = 0;
         for (int i = 0 ; i < s.length(); i += 2) {
-
             if (s[i] == 'X') {
-                cnt += 2;
                 res += 10;
-                if (doubleCount && cnt < 20) {
-                    doubleCount--;
-                    res+= 10;
+                cnt += 2;
+
+                for (int j = 0; j < queue.size(); j++) {
+                    queue[j]--;
+                    res += 10;
                 }
-                // cout << res << " ";
-                doubleCount += 2;
+
+                while (!queue.empty() && queue.front() == 0) {
+                    queue.pop_front();
+                }
+
+                if (cnt < 20)
+                    queue.push_back(2);
                 continue;
             }
 
@@ -28,24 +33,32 @@ int main () {
 
             if (s[i] == '/') {
                 res += 10 - prevNum;
-                if (doubleCount && cnt < 20) {
+                for (int j = 0; j < queue.size(); j++) {
+                    queue[j]--;
                     res += 10 - prevNum;
-                    doubleCount--;
                 }
-                // cout << res << " ";
-                doubleCount += 1;
+
+                while (!queue.empty() && queue.front() == 0) {
+                    queue.pop_front();
+                }
+
+                if (cnt < 20)
+                    queue.push_back(1);
                 continue;
             }
 
             res += s[i] - '0';
             prevNum = s[i] - '0';
-            if (doubleCount && cnt < 20) {
-                res += s[i] - '0';
-                doubleCount--;
+            for (int j = 0; j < queue.size(); j++) {
+                queue[j]--;
+                res += prevNum;
             }
-            // cout << res << " ";
+
+            while (!queue.empty() && queue.front() == 0) {
+                queue.pop_front();
+            }
         }
-        // cout << endl;
+        
         cout << res << endl;
         getline(cin, s);
     }
