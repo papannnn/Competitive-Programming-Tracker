@@ -238,7 +238,7 @@
 
 ###### Game (Others), Harder (more tedious)
 - Kattis - rockpaperscissors [**AC**] (https://open.kattis.com/problems/rockpaperscissors)
-- UVa 00584 - Bowling [**NOT YET ATTEMPTED**] (http://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=525)
+- UVa 00584 - Bowling [**AC**] (http://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=525)
 - UVa 10813 - Traditional BINGO [**NOT YET ATTEMPTED**] (http://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1754)
 - UVa 11013 - Get Straight [**NOT YET ATTEMPTED**] (http://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1954)
 - Kattis - battleship [**NOT YET ATTEMPTED**] (https://open.kattis.com/problems/battleship)
