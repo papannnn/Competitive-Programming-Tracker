@@ -11,19 +11,18 @@ int main () {
         cin >> num;
     }
 
-    vector<long long> cnt(n + 1);
     long long idx = 0;
+    long long cnt = 0;
+    long long res = 0;
     for (int i = 0; i < arr.size(); i++) {
-        if (arr[idx] + 1000 <= arr[i]) {
-            idx = i;
+        while (arr[idx] + 1000 <= arr[i]) {
+            cnt--;
+            idx++;
         }
-        cnt[idx]++;
+        cnt++;
+        res = max(res, cnt);
     }
 
-    long long res = 0;
-    for (long long &num : cnt) {
-        long long temp = ceil(static_cast<double>(num) / m);
-        res = max(res, temp);
-    }
-    cout << res << endl;
+    long long temp = ceil(static_cast<double>(res) / m);
+    cout << temp << endl;
 }
