@@ -2,7 +2,7 @@
 
 using namespace std;
 // https://open.kattis.com/problems/basicprogramming2
-// O(n)
+// O(n log n)
 int main () {
     int n, t;
     cin >> n >> t;
