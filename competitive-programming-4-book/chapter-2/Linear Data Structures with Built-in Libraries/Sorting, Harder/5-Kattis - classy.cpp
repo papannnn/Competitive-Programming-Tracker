@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+// https://open.kattis.com/problems/classy
 // O(t * n log n)
 struct Family {
     string name;
