@@ -6,13 +6,13 @@ using namespace std;
 int main () {
     int n, m;
     cin >> n >> m;
-    vector<unsigned long long> arr1(n);
-    vector<unsigned long long> arr2(m);
-    for (unsigned long long& num : arr1) {
+    vector<long long> arr1(n);
+    vector<long long> arr2(m);
+    for (long long& num : arr1) {
         cin >> num;
     }
 
-    for (unsigned long long& num : arr2) {
+    for (long long& num : arr2) {
         cin >> num;
     }
 
