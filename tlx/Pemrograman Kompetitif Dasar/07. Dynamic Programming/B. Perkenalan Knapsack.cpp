@@ -7,39 +7,45 @@ struct Batu {
     int harga;
 };
 
-vector<int> resTake;
-int resWeight = 0;
-int resHarga = 0;
-int solve(int idx, vector<Batu> &arr, int n, int res, vector<int> &takeRock, vector<vector<int>> &memo) {
-    if (idx == arr.size()) {
-        if (res > resHarga) {
-            resTake = takeRock;
-            resWeight = n;
-            resHarga = res;
-        } else if (res == resHarga) {
-            if (n > resWeight) {
-                resTake = takeRock;
-                resWeight = n;
-            } else if (n == resWeight) {
-                vector<int> temp = takeRock < resTake ? takeRock : resTake;
-                resTake = temp;
-            }
+struct Result {
+    int value;
+    vector<int> items;
+    int n;
+
+    bool operator<(const Result &b) const {
+        if (this->value != b.value) {
+            return this->value < b.value;
         }
-        
-        return res;
+
+        if (this->n != b.n) {
+            return this->n < b.n;
+        }
+
+        return this->items > b.items;
+    }
+};
+
+Result solve(int idx, vector<Batu> &arr, int n, int currValue, vector<int> &takeRock, vector<vector<Result>> &memo) {
+    if (idx == arr.size()) {
+        Result result;
+        result.value = currValue;
+        result.items = takeRock;
+        result.n = n;
+        return result;
     }
 
-    if (memo[n][idx] != -1) {
+    if (memo[n][idx].value != -1) {
         return memo[n][idx];
     }
 
-    int take = 0;
-    int skip = solve(idx + 1, arr, n, res, takeRock, memo);
+    Result take;
+    take.value = 0;
     if (arr[idx].berat <= n) {
         takeRock.push_back(idx + 1);
-        take = solve(idx + 1, arr, n - arr[idx].berat, res + arr[idx].harga, takeRock, memo);
+        take = solve(idx + 1, arr, n - arr[idx].berat, currValue + arr[idx].harga, takeRock, memo);
         takeRock.pop_back();
     }
+    Result skip = solve(idx + 1, arr, n, currValue, takeRock, memo);
     memo[n][idx] = max(take, skip);
     return memo[n][idx];
 }
@@ -53,10 +59,13 @@ int main () {
     }
 
     vector<int> takeRock;
-    vector<vector<int>> memo(n + 1, vector<int>(k + 1, -1));
-    int res = solve(0, arr, n, 0, takeRock, memo);
-    // cout << res << endl;
-    for (int &num : resTake) {
+    Result temp;
+    temp.value = -1;
+    vector<vector<Result>> memo(n + 1, vector<Result>(k + 1, temp));
+    Result res = solve(0, arr, n, 0, takeRock, memo);
+    // cout << res.value << endl;
+    sort(res.items.begin(), res.items.end());
+    for (int &num : res.items) {
         cout << num << endl;
     }
 }
