@@ -3,69 +3,52 @@
 using namespace std;
 
 struct Batu {
-    int berat;
-    int harga;
+    long long berat;
+    long long harga;
 };
 
-struct Result {
-    int value;
-    vector<int> items;
-    int n;
-
-    bool operator<(const Result &b) const {
-        if (this->value != b.value) {
-            return this->value < b.value;
-        }
-
-        if (this->n != b.n) {
-            return this->n < b.n;
-        }
-
-        return this->items > b.items;
-    }
-};
-
-Result solve(int idx, vector<Batu> &arr, int n, int currValue, vector<int> &takeRock, vector<vector<Result>> &memo) {
+long long solve(long long idx, vector<Batu> &arr, long long n, vector<vector<long long>> &memo) {
     if (idx == arr.size()) {
-        Result result;
-        result.value = currValue;
-        result.items = takeRock;
-        result.n = n;
-        return result;
+        return 0;
     }
 
-    if (memo[n][idx].value != -1) {
+    if (memo[n][idx] != -1) {
         return memo[n][idx];
     }
 
-    Result take;
-    take.value = 0;
+    long long take = 0;
     if (arr[idx].berat <= n) {
-        takeRock.push_back(idx + 1);
-        take = solve(idx + 1, arr, n - arr[idx].berat, currValue + arr[idx].harga, takeRock, memo);
-        takeRock.pop_back();
+        take = solve(idx + 1, arr, n - arr[idx].berat, memo) + arr[idx].harga;
     }
-    Result skip = solve(idx + 1, arr, n, currValue, takeRock, memo);
+    long long skip = solve(idx + 1, arr, n, memo);
     memo[n][idx] = max(take, skip);
     return memo[n][idx];
 }
 
 int main () {
-    int n, k;
+    long long n, k;
     cin >> n >> k;
     vector<Batu> arr(k);
     for (Batu &b : arr) {
         cin >> b.berat >> b.harga;
     }
 
-    vector<int> takeRock;
-    Result temp;
-    temp.value = -1;
-    vector<vector<Result>> memo(n + 1, vector<Result>(k + 1, temp));
-    Result res = solve(0, arr, n, 0, takeRock, memo);
-    // cout << res.value << endl;
-    sort(res.items.begin(), res.items.end());
-    for (int &num : res.items) {
+    vector<vector<long long>> memo(n + 1, vector<long long>(k + 1, -1));
+    solve(0, arr, n, memo);
+
+    vector<long long> res;
+    for (long long i = 0; i < arr.size(); i++) {
+        if (n >= arr[i].berat) {
+            long long take = arr[i].harga + solve(i + 1, arr, n - arr[i].berat, memo);
+            long long skip = solve(i + 1, arr, n, memo);
+            if (take >= skip) {
+                n -= arr[i].berat;
+                res.push_back(i + 1);
+            }
+        }
+    }
+
+    for (long long &num : res) {
         cout << num << endl;
     }
 }
