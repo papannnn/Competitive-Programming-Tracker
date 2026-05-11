@@ -7,22 +7,27 @@ struct Batu {
     long long harga;
 };
 
-long long solve(long long idx, vector<Batu> &arr, long long n, vector<vector<long long>> &memo) {
-    if (idx == arr.size()) {
-        return 0;
-    }
+pair<long long,long long> solve(long long idx, vector<Batu> &arr, long long n, vector<vector<pair<long long,long long>>> &memo) {
+    if (idx == (long long)arr.size()) return {0, 0};
+    if (memo[n][idx].first != -1) return memo[n][idx];
 
-    if (memo[n][idx] != -1) {
-        return memo[n][idx];
-    }
+    pair<long long,long long> skip = solve(idx + 1, arr, n, memo);
 
-    long long take = 0;
+    pair<long long,long long> take = {-1, 0};
     if (arr[idx].berat <= n) {
-        take = solve(idx + 1, arr, n - arr[idx].berat, memo) + arr[idx].harga;
+        auto [v, w] = solve(idx + 1, arr, n - arr[idx].berat, memo);
+        take = {v + arr[idx].harga, w + arr[idx].berat};
     }
-    long long skip = solve(idx + 1, arr, n, memo);
-    memo[n][idx] = max(take, skip);
-    return memo[n][idx];
+
+    pair<long long,long long> best;
+    if (take.first > skip.first)
+        best = take;
+    else if (take.first == skip.first && take.second <= skip.second)
+        best = take;
+    else
+        best = skip;
+
+    return memo[n][idx] = best;
 }
 
 int main () {
@@ -33,15 +38,24 @@ int main () {
         cin >> b.berat >> b.harga;
     }
 
-    vector<vector<long long>> memo(n + 1, vector<long long>(k + 1, -1));
+    vector<vector<pair<long long, long long>>> memo(n + 1, vector<pair<long long, long long>>(k + 1, {-1, -1}));
+    pair<long long, long long> state = {0, 0};
     solve(0, arr, n, memo);
+    // cout << res.first << " " << res.second << endl;
 
     vector<long long> res;
-    for (long long i = 0; i < arr.size(); i++) {
+    for (long long i = 0; i < (long long)arr.size(); i++) {
         if (n >= arr[i].berat) {
-            long long take = arr[i].harga + solve(i + 1, arr, n - arr[i].berat, memo);
-            long long skip = solve(i + 1, arr, n, memo);
-            if (take >= skip) {
+            auto [tv, tw] = solve(i + 1, arr, n - arr[i].berat, memo);
+            tv += arr[i].harga;
+            tw += arr[i].berat;
+            auto [sv, sw] = solve(i + 1, arr, n, memo);
+
+            bool prefer_take = false;
+            if (tv > sv) prefer_take = true;
+            else if (tv == sv && tw <= sw) prefer_take = true;
+
+            if (prefer_take) {
                 n -= arr[i].berat;
                 res.push_back(i + 1);
             }
